@@ -349,6 +349,7 @@ import BraintreeDataCollector
                     self.notifyFailure(with: BTPayPalError.invalidURL("Missing approval URL in gateway response."), completion: completion)
                     return
                 }
+                print(response)
                 
                 self.payPalContextID = approvalURL.baToken ?? approvalURL.ecToken
 
