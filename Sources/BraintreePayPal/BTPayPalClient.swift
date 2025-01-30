@@ -340,7 +340,8 @@ import BraintreeDataCollector
                     universalLink: self.universalLink,
                     isPayPalAppInstalled: self.application.isPayPalAppInstalled()
                 )
-            ) { body, _, error in
+            ) { body, response, error in
+                print("#### response: \(String(describing: response))")
                 if let error = error as? NSError {
                     guard let jsonResponseBody = error.userInfo[BTCoreConstants.jsonResponseBodyKey] as? BTJSON else {
                         self.notifyFailure(with: error, completion: completion)
@@ -360,7 +361,8 @@ import BraintreeDataCollector
                 }
                 
                 self.payPalContextID = approvalURL.baToken ?? approvalURL.ecToken
-
+                print("#### approval: \(approvalURL)")
+                print("#### contextID: \(self.payPalContextID)")
                 let dataCollector = BTDataCollector(apiClient: self.apiClient)
                 self.clientMetadataID = self.payPalRequest?.riskCorrelationID ?? dataCollector.clientMetadataID(self.payPalContextID)
 
